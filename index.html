@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMBER — Artisan Coffee & Roastery</title>
+  <meta name="description" content="EMBER is a premium artisan café & roastery offering handcrafted coffee, seasonal pastries, and an unforgettable dining experience. Reserve your table today.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="preloader-logo">EMBER</div>
+    <div class="preloader-bar"></div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div class="cursor-dot"></div>
+  <div class="cursor-outline"></div>
+
+  <!-- Toast Notification -->
+  <div class="toast">
+    <span class="toast-icon">☕</span>
+    <span class="toast-message"></span>
+  </div>
+
+  <!-- Login / Signup Modal -->
+  <div class="login-overlay" id="login">
+    <div class="login-modal">
+      <button class="login-close" aria-label="Close login">×</button>
+      <!-- Auth Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-auth-tab="signin">Sign In</button>
+        <button class="auth-tab" data-auth-tab="signup">Create Account</button>
+      </div>
+      <!-- Sign In Form -->
+      <div class="auth-panel active" id="auth-signin">
+        <p class="auth-subtitle">Welcome back to Ember</p>
+        <form class="login-form">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="login-pass">Password</label>
+            <input type="password" id="login-pass" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="login-btn">Sign In</button>
+        </form>
+      </div>
+      <!-- Sign Up Form -->
+      <div class="auth-panel" id="auth-signup">
+        <p class="auth-subtitle">Join the Ember family</p>
+        <form class="signup-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="signup-first">First Name</label>
+              <input type="text" id="signup-first" placeholder="Arjun" required>
+            </div>
+            <div class="form-group">
+              <label for="signup-last">Last Name</label>
+              <input type="text" id="signup-last" placeholder="Reddy" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" placeholder="your@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="signup-phone">Phone</label>
+            <input type="tel" id="signup-phone" placeholder="+91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label for="signup-pass">Password</label>
+            <input type="password" id="signup-pass" placeholder="Min 8 characters" required minlength="8">
+          </div>
+          <div class="form-group">
+            <label for="signup-confirm">Confirm Password</label>
+            <input type="password" id="signup-confirm" placeholder="Re-enter password" required>
+          </div>
+          <button type="submit" class="login-btn">Create My Account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reservation Confirmation Overlay -->
+  <div class="confirmation-overlay" id="confirmationOverlay">
+    <div class="confirmation-page">
+      <div class="confirmation-icon">✓</div>
+      <h2 class="confirmation-title">Reservation Confirmed!</h2>
+      <p class="confirmation-subtitle">Your table at Ember has been reserved</p>
+      <div class="confirmation-details">
+        <div class="confirm-row">
+          <span class="confirm-label">Name</span>
+          <span class="confirm-value" id="confirm-name">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Date</span>
+          <span class="confirm-value" id="confirm-date">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Time</span>
+          <span class="confirm-value" id="confirm-time">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Guests</span>
+          <span class="confirm-value" id="confirm-guests">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="confirm-label">Email</span>
+          <span class="confirm-value" id="confirm-email">—</span>
+        </div>
+      </div>
+      <p class="confirmation-note">A confirmation email has been sent. We look forward to welcoming you!</p>
+      <button class="btn-primary confirmation-close"><span>Back to Ember</span></button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#order">How to Order</a></li>
+      <li><a href="#reserve">Reservations</a></li>
+      <li><a href="#" data-login>Sign In</a></li>
+    </ul>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <a href="#home" class="nav-logo">EMBER</a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#story">Story</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#order">Order</a></li>
+      <li><a href="#reserve">Reserve</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#" class="nav-cta" data-login>Sign In</a></li>
+    </ul>
+    <button class="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="home">
+    <div class="hero-media">
+      <img src="images/cafe-hero.png" alt="Ember Café interior with warm ambient lighting">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-tag">Artisan Coffee & Roastery — Est. 2019</p>
+      <h1 class="hero-title">Where Every<br><em>Cup Tells</em> a Story</h1>
+      <p class="hero-subtitle">Handcrafted with passion, roasted with precision. Experience coffee as it was meant to be — an art form, a ritual, a moment of pure bliss.</p>
+      <div class="hero-buttons">
+        <a href="#menu" class="btn-primary"><span>Explore Menu</span></a>
+        <a href="#reserve" class="btn-outline">Book a Table</a>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STORY / ABOUT ============ -->
+  <section class="section" id="story">
+    <div class="story-grid">
+      <div class="story-image-wrapper reveal-left">
+        <img src="images/coffee-beans.png" alt="Freshly roasted coffee beans">
+      </div>
+      <div class="story-text">
+        <p class="section-tag reveal">Our Story</p>
+        <h2 class="section-title reveal delay-1">Born from a Love of <br>the Perfect Roast</h2>
+        <p class="section-desc reveal delay-2">
+          In the heart of the city, Ember was born from a simple belief: that extraordinary coffee comes from an unyielding devotion to craft. Every bean is hand-selected from sustainable farms across Ethiopia, Colombia, and Guatemala, then roasted in small batches in our on-site roastery.
+        </p>
+        <p class="section-desc reveal delay-3" style="margin-top: 16px;">
+          Our baristas aren't just skilled — they're storytellers, turning each cup into a narrative of origin, process, and passion.
+        </p>
+        <div class="story-stats reveal delay-4">
+          <div>
+            <div class="stat-number" data-count="12" data-suffix="+">0</div>
+            <div class="stat-label">Bean Origins</div>
+          </div>
+          <div>
+            <div class="stat-number" data-count="50" data-suffix="K+">0</div>
+            <div class="stat-label">Cups Served</div>
+          </div>
+          <div>
+            <div class="stat-number" data-count="6" data-suffix="">0</div>
+            <div class="stat-label">Years of Craft</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARALLAX DIVIDER ============ -->
+  <div class="parallax-divider">
+    <img src="images/barista.png" alt="Barista crafting latte art">
+    <div class="overlay"></div>
+    <div class="parallax-quote reveal">
+      <blockquote>"Coffee is a language in itself — and at Ember, we speak it fluently."</blockquote>
+      <cite>— Marco Bellini, Head Roaster</cite>
+    </div>
+  </div>
+
+  <!-- ============ MENU / CATALOG ============ -->
+  <section class="section section-dark" id="menu">
+    <div style="text-align:center; margin-bottom: 50px;">
+      <p class="section-tag reveal">The Catalog</p>
+      <h2 class="section-title reveal delay-1" style="color:var(--cream);">Crafted with <em>Intention</em></h2>
+      <p class="section-desc reveal delay-2" style="margin: 0 auto; color: var(--cream);">Each item on our menu is a carefully considered creation, designed to delight and surprise.</p>
+    </div>
+    <div class="menu-tabs reveal delay-3">
+      <button class="menu-tab active" data-category="all">All</button>
+      <button class="menu-tab" data-category="coffee">Coffee</button>
+      <button class="menu-tab" data-category="specialty">Specialty</button>
+      <button class="menu-tab" data-category="food">Pastries & Food</button>
+      <button class="menu-tab" data-category="cold">Cold Brews</button>
+    </div>
+    <div class="menu-grid">
+      <!-- Coffee -->
+      <div class="menu-card reveal" data-category="coffee">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Espresso">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Classic Espresso</span>
+            <span class="menu-card-price">₹379</span>
+          </div>
+          <p class="menu-card-desc">Single origin, pulled to perfection. Rich crema with notes of dark chocolate and caramel.</p>
+          <span class="menu-card-tag">Signature</span>
+        </div>
+      </div>
+      <div class="menu-card reveal delay-1" data-category="coffee">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Cappuccino">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Velvet Cappuccino</span>
+            <span class="menu-card-price">₹449</span>
+          </div>
+          <p class="menu-card-desc">Silky microfoam atop a double shot, finished with hand-dusted cocoa.</p>
+        </div>
+      </div>
+      <div class="menu-card reveal delay-2" data-category="coffee">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Pour Over">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Pour Over</span>
+            <span class="menu-card-price">₹499</span>
+          </div>
+          <p class="menu-card-desc">Hand-poured V60, highlighting the unique tasting notes of our rotating single origins.</p>
+          <span class="menu-card-tag">Barista's Pick</span>
+        </div>
+      </div>
+      <!-- Specialty -->
+      <div class="menu-card reveal" data-category="specialty">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Ember Latte">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Ember Signature Latte</span>
+            <span class="menu-card-price">₹579</span>
+          </div>
+          <p class="menu-card-desc">Our house blend with vanilla bean, oat milk foam, and a kiss of smoked maple syrup.</p>
+          <span class="menu-card-tag">House Favorite</span>
+        </div>
+      </div>
+      <div class="menu-card reveal delay-1" data-category="specialty">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Golden Hour">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Golden Hour</span>
+            <span class="menu-card-price">₹629</span>
+          </div>
+          <p class="menu-card-desc">Turmeric, honey, espresso, and oat milk — warm, golden, and utterly addictive.</p>
+        </div>
+      </div>
+      <div class="menu-card reveal delay-2" data-category="specialty">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Mocha Noir">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Mocha Noir</span>
+            <span class="menu-card-price">₹549</span>
+          </div>
+          <p class="menu-card-desc">Dark Belgian chocolate melted into a double espresso with steamed whole milk.</p>
+        </div>
+      </div>
+      <!-- Cold Brews -->
+      <div class="menu-card reveal" data-category="cold">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Cold Brew">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">24-Hour Cold Brew</span>
+            <span class="menu-card-price">₹449</span>
+          </div>
+          <p class="menu-card-desc">Steeped for a full day. Smooth, clean, and dangerously drinkable.</p>
+          <span class="menu-card-tag">Best Seller</span>
+        </div>
+      </div>
+      <div class="menu-card reveal delay-1" data-category="cold">
+        <img src="images/coffee-drinks.png" class="menu-card-img" alt="Iced Matcha">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Iced Matcha Latte</span>
+            <span class="menu-card-price">₹499</span>
+          </div>
+          <p class="menu-card-desc">Ceremonial grade matcha whisked with chilled oat milk over hand-cut ice.</p>
+        </div>
+      </div>
+      <!-- Food -->
+      <div class="menu-card reveal" data-category="food">
+        <img src="images/cafe-food.png" class="menu-card-img" alt="Croissant">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Butter Croissant</span>
+            <span class="menu-card-price">₹349</span>
+          </div>
+          <p class="menu-card-desc">Flaky, golden, and made fresh every morning with French butter.</p>
+        </div>
+      </div>
+      <div class="menu-card reveal delay-1" data-category="food">
+        <img src="images/cafe-food.png" class="menu-card-img" alt="Avocado Toast">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Avocado & Sourdough</span>
+            <span class="menu-card-price">₹799</span>
+          </div>
+          <p class="menu-card-desc">Smashed avocado, chili flakes, heirloom tomato, and micro greens on house sourdough.</p>
+          <span class="menu-card-tag">Brunch Star</span>
+        </div>
+      </div>
+      <div class="menu-card reveal delay-2" data-category="food">
+        <img src="images/cafe-food.png" class="menu-card-img" alt="Carrot Cake">
+        <div class="menu-card-info">
+          <div class="menu-card-header">
+            <span class="menu-card-name">Carrot Cake Slice</span>
+            <span class="menu-card-price">₹549</span>
+          </div>
+          <p class="menu-card-desc">Moist spiced cake layered with cream cheese frosting and candied pecans.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW TO ORDER ============ -->
+  <section class="section section-cream" id="order">
+    <div style="text-align:center;">
+      <p class="section-tag reveal">How It Works</p>
+      <h2 class="section-title reveal delay-1">Your Order, <em>Your Way</em></h2>
+      <p class="section-desc reveal delay-2" style="margin: 0 auto;">Whether you're dining in, picking up, or ordering ahead — we make it effortless.</p>
+    </div>
+    <div class="order-steps">
+      <div class="order-step reveal delay-1">
+        <div class="step-number">01</div>
+        <div class="step-icon">📱</div>
+        <h3 class="step-title">Browse Menu</h3>
+        <p class="step-desc">Explore our handcrafted menu online or at our in-store digital kiosk.</p>
+      </div>
+      <div class="order-step reveal delay-2">
+        <div class="step-number">02</div>
+        <div class="step-icon">☕</div>
+        <h3 class="step-title">Customize</h3>
+        <p class="step-desc">Choose your milk, sweetness, temperature, and size. Make it yours.</p>
+      </div>
+      <div class="order-step reveal delay-3">
+        <div class="step-number">03</div>
+        <div class="step-icon">💳</div>
+        <h3 class="step-title">Pay & Confirm</h3>
+        <p class="step-desc">Pay securely in-app, at the counter, or via contactless payment.</p>
+      </div>
+      <div class="order-step reveal delay-4">
+        <div class="step-number">04</div>
+        <div class="step-icon">✨</div>
+        <h3 class="step-title">Enjoy</h3>
+        <p class="step-desc">Pick up at the bar or relax while we bring it to your table.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARALLAX DIVIDER 2 ============ -->
+  <div class="parallax-divider">
+    <img src="images/cafe-ambience.png" alt="Cozy café ambience">
+    <div class="overlay"></div>
+    <div class="parallax-quote reveal">
+      <blockquote>"The best conversations are born over a cup of Ember."</blockquote>
+      <cite>— A Regular Guest</cite>
+    </div>
+  </div>
+
+  <!-- ============ RESERVATION ============ -->
+  <section class="section section-dark" id="reserve">
+    <div class="reservation-wrapper">
+      <div>
+        <p class="section-tag reveal">Reservations</p>
+        <h2 class="section-title reveal delay-1" style="color:var(--cream);">Reserve Your <em>Moment</em></h2>
+        <p class="section-desc reveal delay-2" style="color:var(--cream); margin-bottom: 40px;">Secure your favourite corner at Ember. Walk-ins welcome, but reservations guarantee the perfect spot.</p>
+        <form class="reservation-form reveal delay-3">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-name">Full Name</label>
+              <input type="text" id="res-name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="res-email">Email</label>
+              <input type="email" id="res-email" placeholder="john@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-date">Date</label>
+              <input type="date" id="res-date" required>
+            </div>
+            <div class="form-group">
+              <label for="res-time">Time</label>
+              <select id="res-time" required>
+                <option value="">Select time</option>
+                <option>8:00 AM</option><option>9:00 AM</option>
+                <option>10:00 AM</option><option>11:00 AM</option>
+                <option>12:00 PM</option><option>1:00 PM</option>
+                <option>2:00 PM</option><option>3:00 PM</option>
+                <option>4:00 PM</option><option>5:00 PM</option>
+                <option>6:00 PM</option><option>7:00 PM</option>
+                <option>8:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="res-guests">Guests</label>
+              <select id="res-guests" required>
+                <option value="">Number of guests</option>
+                <option>1 Guest</option><option>2 Guests</option>
+                <option>3 Guests</option><option>4 Guests</option>
+                <option>5 Guests</option><option>6+ Guests</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="res-phone">Phone</label>
+              <input type="tel" id="res-phone" placeholder="+91 98765 43210">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="res-notes">Special Requests</label>
+            <textarea id="res-notes" placeholder="Birthday celebration, window seat, accessibility needs..."></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="text-align:center;"><span>Confirm Reservation</span></button>
+        </form>
+      </div>
+      <div class="reservation-image reveal-right">
+        <img src="images/cafe-exterior.png" alt="Ember café exterior at golden hour">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALLERY ============ -->
+  <section class="section" id="gallery">
+    <div style="text-align:center; margin-bottom: 50px;">
+      <p class="section-tag reveal">Gallery</p>
+      <h2 class="section-title reveal delay-1">A Glimpse Inside <em>Ember</em></h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal-scale"><img src="images/cafe-hero.png" alt="Café interior"></div>
+      <div class="gallery-item reveal-scale delay-1"><img src="images/coffee-drinks.png" alt="Artisan coffee"></div>
+      <div class="gallery-item reveal-scale delay-2"><img src="images/barista.png" alt="Barista at work"></div>
+      <div class="gallery-item reveal-scale delay-3"><img src="images/cafe-food.png" alt="Fresh pastries"></div>
+      <div class="gallery-item reveal-scale delay-4"><img src="images/cafe-ambience.png" alt="Cozy corner"></div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS ============ -->
+  <section class="section section-dark" id="testimonials">
+    <div style="text-align:center;">
+      <p class="section-tag reveal">Kind Words</p>
+      <h2 class="section-title reveal delay-1" style="color:var(--cream);">What Our Guests Say</h2>
+    </div>
+    <div class="testimonial-slider reveal delay-2">
+      <div class="testimonial-slide active">
+        <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+        <p class="testimonial-text">"Ember isn't just a café — it's a sanctuary. The pour-over changed how I think about coffee forever. The ambience is unmatched."</p>
+        <span class="testimonial-author">— Sophia Chen, Regular</span>
+      </div>
+      <div class="testimonial-slide">
+        <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+        <p class="testimonial-text">"I come for the Golden Hour latte and stay for the atmosphere. Every visit feels like coming home to a perfectly curated experience."</p>
+        <span class="testimonial-author">— James Wright, Food Blogger</span>
+      </div>
+      <div class="testimonial-slide">
+        <div class="testimonial-stars">★ ★ ★ ★ ★</div>
+        <p class="testimonial-text">"The attention to detail here is extraordinary. From bean selection to the cup design — every element speaks of genuine craftsmanship."</p>
+        <span class="testimonial-author">— Aria Patel, Designer</span>
+      </div>
+    </div>
+    <div class="testimonial-controls reveal delay-3">
+      <button class="testimonial-dot active" aria-label="Slide 1"></button>
+      <button class="testimonial-dot" aria-label="Slide 2"></button>
+      <button class="testimonial-dot" aria-label="Slide 3"></button>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer" id="contact">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>EMBER</h3>
+        <p>Artisan Coffee & Roastery. Handcrafted with passion since 2019. Every cup, a story worth savoring.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#story">Our Story</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#order">How to Order</a></li>
+          <li><a href="#reserve">Reservations</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Visit Us</h4>
+        <ul>
+          <li><a href="#">Plot 42, Road No. 10, Banjara Hills</a></li>
+          <li><a href="#">Hyderabad, Telangana 500034</a></li>
+          <li><a href="#">Mon–Fri: 7AM – 9PM</a></li>
+          <li><a href="#">Sat–Sun: 8AM – 10PM</a></li>
+          <li><a href="tel:+914023456789">+91 40 2345 6789</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="mailto:hello@embercafe.in">hello@embercafe.in</a></li>
+          <li><a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://www.x.com" target="_blank" rel="noopener">Twitter / X</a></li>
+          <li><a href="https://www.zomato.com" target="_blank" rel="noopener">Zomato</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Ember Café. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
